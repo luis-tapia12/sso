@@ -1,5 +1,6 @@
 package com.jcontrerast.sso.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.jcontrerast.sso.utils.Constants;
 import com.jcontrerast.sso.validation.Create;
 import com.jcontrerast.sso.validation.NullableNotBlank;
@@ -40,6 +41,7 @@ public class Client {
     @Column(name = "CLIENT_ID")
     private String clientId;
 
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @NotBlank(groups = Create.class)
     @NullableNotBlank(groups = Update.class)
     @Size(min = 2, max = 50)
