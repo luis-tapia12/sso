@@ -1,5 +1,6 @@
 package com.jcontrerast.sso.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.jcontrerast.sso.utils.Constants;
 import com.jcontrerast.sso.validation.Create;
@@ -12,15 +13,19 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDateTime;
+import java.util.Collection;
+import java.util.List;
 import java.util.UUID;
 
 @Getter
 @Setter
 @Entity
 @Table(name = "SSO_USERS")
-public class User {
+public class User implements UserDetails {
     @Id
     @Column(name = "ID")
     private String id;
@@ -50,7 +55,7 @@ public class User {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @NotBlank(groups = Create.class)
     @NullableNotBlank(groups = Update.class)
-    @Size(min = 2, max = 50)
+    @Size(min = 2, max = 100)
     @Column(name = "PASSWORD")
     private String password;
 
@@ -75,6 +80,36 @@ public class User {
     @Size(max = 100)
     @Column(name = "PROFILE_PICTURE")
     private String profilePicture;
+
+    @JsonIgnore
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of();
+    }
+
+    @JsonIgnore
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @JsonIgnore
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @JsonIgnore
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @JsonIgnore
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 
     public void generateId() {
         this.id = UUID.randomUUID().toString();

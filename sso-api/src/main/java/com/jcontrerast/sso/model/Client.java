@@ -44,7 +44,7 @@ public class Client {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @NotBlank(groups = Create.class)
     @NullableNotBlank(groups = Update.class)
-    @Size(min = 2, max = 50)
+    @Size(min = 2, max = 100)
     @Column(name = "PASSWORD")
     private String password;
 
