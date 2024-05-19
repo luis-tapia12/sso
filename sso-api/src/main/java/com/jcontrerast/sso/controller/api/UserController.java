@@ -3,7 +3,10 @@ package com.jcontrerast.sso.controller.api;
 import com.jcontrerast.sso.dto.PageDTO;
 import com.jcontrerast.sso.model.User;
 import com.jcontrerast.sso.service.UserService;
+import com.jcontrerast.sso.validation.Create;
+import com.jcontrerast.sso.validation.Update;
 import org.springframework.data.domain.Page;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -26,12 +29,12 @@ public class UserController {
     }
 
     @PostMapping
-    public User saveUser(@RequestBody User user) {
+    public User saveUser(@Validated(Create.class) @RequestBody User user) {
         return service.saveUser(user);
     }
 
     @PatchMapping("/{id}")
-    public User updateUser(@PathVariable String id, @RequestBody User user) {
+    public User updateUser(@PathVariable String id, @Validated(Update.class) @RequestBody User user) {
         user.setId(id);
         return service.updateUser(user);
     }

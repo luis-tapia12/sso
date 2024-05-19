@@ -3,7 +3,10 @@ package com.jcontrerast.sso.controller.api;
 import com.jcontrerast.sso.dto.PageDTO;
 import com.jcontrerast.sso.model.Client;
 import com.jcontrerast.sso.service.ClientService;
+import com.jcontrerast.sso.validation.Create;
+import com.jcontrerast.sso.validation.Update;
 import org.springframework.data.domain.Page;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -26,12 +29,12 @@ public class ClientController {
     }
 
     @PostMapping
-    public Client saveClient(@RequestBody Client client) {
+    public Client saveClient(@Validated(Create.class) @RequestBody Client client) {
         return service.saveClient(client);
     }
 
     @PatchMapping("/{id}")
-    public Client updateClient(@PathVariable String id, @RequestBody Client client) {
+    public Client updateClient(@PathVariable String id, @Validated(Update.class) @RequestBody Client client) {
         client.setId(id);
         return service.updateClient(client);
     }
