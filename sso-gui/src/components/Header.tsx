@@ -6,13 +6,13 @@ type HeaderProps = {
 };
 
 const Header = ({ routes }: HeaderProps) => {
-	const renderRoute = (route: Route, routeIndex: number) => (
+	const renderRoute = (currRoute: Route, routeIndex: number) => (
 		<li key={routeIndex}>
-			<Link to={route.path}>{route.title}</Link>
+			<Link to={currRoute.path}>{currRoute.title}</Link>
 		</li>
 	);
 
-	const renderRoutes = routes.filter((route) => route.title).map(renderRoute);
+	const renderRoutes = routes.filter((currRoute) => currRoute.title).map(renderRoute);
 
 	return (
 		<div>

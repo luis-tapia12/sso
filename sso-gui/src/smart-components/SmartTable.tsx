@@ -1,0 +1,107 @@
+import { createElement } from 'react';
+import { FieldValues, UseFormReturn } from 'react-hook-form';
+
+import ConfirmationModal from './ConfirmationModal';
+import Modal from '../components/Modal';
+import Table, { Schema } from '../components/Table';
+import { ModalMode, useSmartTable } from '../hooks/useSmartTable';
+
+type SmartTableProps<T extends FieldValues> = {
+	data: T[];
+	formComponent: React.FC<FormProps<T>>;
+	page: number;
+	schema: Schema<string, T>;
+	totalPages: number;
+	handleConfirm: (item: T) => void;
+	setPage: (page: number) => void;
+};
+
+export type FormProps<T extends FieldValues> = {
+	form: UseFormReturn<T, unknown, undefined>;
+	modalMode: ModalMode;
+	handleCloseModal: () => void;
+};
+
+const SmartTable = <T extends Record<string, unknown>>({
+	page,
+	formComponent,
+	schema,
+	totalPages,
+	handleConfirm,
+	setPage,
+	...rest
+}: SmartTableProps<T>) => {
+	const {
+		editingPage,
+		form,
+		localPage,
+		modalMode,
+		handleClickAdd,
+		handleClickDelete,
+		handleClickEdit,
+		handleClickNext,
+		handleClickPrev,
+		handleCloseModal,
+		handleChangePage,
+		handleEditPage
+	} = useSmartTable<T>(page, totalPages, setPage);
+
+	const smartSchema: Schema<string, T> = {
+		...schema,
+		__: {
+			label: 'Action',
+			render: (item) => (
+				<div>
+					<button onClick={() => handleClickEdit(item)}>🖊️</button>
+					<button onClick={() => handleClickDelete(item)}>🗑️</button>
+				</div>
+			)
+		}
+	};
+
+	return (
+		<div>
+			<div>
+				Actions: <button onClick={handleClickAdd}>➕</button>
+			</div>
+			<Table {...rest} schema={smartSchema} />
+			<div>
+				<button disabled={page + 1 <= 1} onClick={handleClickPrev}>
+					Prev
+				</button>
+				<form>
+					<span>
+						{`${page + 1} of `}
+						{editingPage ? (
+							<input
+								onChange={handleChangePage}
+								type="number"
+								value={localPage || ''}
+							/>
+						) : (
+							totalPages
+						)}
+					</span>
+					<button onClick={handleEditPage}>{editingPage ? 'Accept' : 'Edit'}</button>
+				</form>
+				<button disabled={page + 1 >= totalPages} onClick={handleClickNext}>
+					Next
+				</button>
+			</div>
+			<ConfirmationModal
+				show={modalMode === 'delete'}
+				onAccept={() => handleConfirm(form.getValues())}
+				onClose={handleCloseModal}
+			/>
+			<Modal
+				show={modalMode === 'update' || modalMode === 'create'}
+				title={modalMode as string}
+				onClose={handleCloseModal}
+			>
+				{createElement(formComponent, { form, modalMode, handleCloseModal })}
+			</Modal>
+		</div>
+	);
+};
+
+export default SmartTable;
