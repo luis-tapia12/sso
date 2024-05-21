@@ -5,7 +5,12 @@ import react from '@vitejs/plugin-react-swc';
 export default defineConfig(({ mode }) => {
 	const env = loadEnv(mode, process.cwd(), '');
 	return {
-		base: env.BASE_URL,
-		plugins: [react()]
+		base: env.VITE_BASE_URL + '/app',
+		plugins: [react()],
+		server: {
+			proxy: {
+				'/sso/api': 'http://localhost:8080'
+			}
+		}
 	};
 });

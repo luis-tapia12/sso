@@ -19,6 +19,12 @@ export const useSmartTable = <T extends FieldValues>(
 		}
 	}, [localPage]); // eslint-disable-line
 
+	useEffect(() => {
+		if (form.formState.isSubmitted) {
+			handleCloseModal();
+		}
+	}, [form.formState.isSubmitted]); // eslint-disable-line
+
 	const handleClickNext = () => setLocalPage((prevPage) => prevPage + 1);
 	const handleClickPrev = () => setLocalPage((prevPage) => prevPage - 1);
 

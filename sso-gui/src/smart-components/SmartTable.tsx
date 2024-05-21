@@ -12,7 +12,7 @@ type SmartTableProps<T extends FieldValues> = {
 	page: number;
 	schema: Schema<string, T>;
 	totalPages: number;
-	handleConfirm: (item: T) => void;
+	handleConfirm: (item: T) => Promise<unknown>;
 	setPage: (page: number) => void;
 };
 
