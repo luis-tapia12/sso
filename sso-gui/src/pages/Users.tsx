@@ -3,8 +3,19 @@ import SmartTable, { FormProps } from '../smart-components/SmartTable';
 import { User, useUsers } from '../store/useUsers';
 
 const Users = () => {
-	const { users, page, totalPages, loading, handleCreate, handleDelete, handleUpdate, setPage } =
-		useUsers();
+	const {
+		users,
+		page,
+		totalPages,
+		loading,
+		sort,
+		order,
+		handleCreate,
+		handleDelete,
+		handleUpdate,
+		setPage,
+		setSort
+	} = useUsers();
 
 	const schema = {
 		username: 'Username',
@@ -40,6 +51,9 @@ const Users = () => {
 	return (
 		<div>
 			<SmartTable
+				sort={sort}
+				order={order}
+				setSort={setSort}
 				data={users}
 				handleConfirm={handleDelete}
 				formComponent={UserForm}

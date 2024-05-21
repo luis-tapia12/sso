@@ -22,10 +22,13 @@ type UsersState = {
 	page: number;
 	totalPages: number;
 	loading: boolean;
+	sort: string;
+	order: 'asc' | 'desc';
 	setPage: (page: number) => void;
 	setUsersPage: (usersPage: Page<User>) => void;
 	setLoading: (loading: boolean) => void;
 	setUsers: (users: User[]) => void;
+	setSort: (column: string) => void;
 };
 
 export const useUsersStore = create<UsersState>((set) => ({
@@ -33,15 +36,19 @@ export const useUsersStore = create<UsersState>((set) => ({
 	page: 0,
 	totalPages: 10,
 	loading: true,
-	setPage: (page: number) => set(() => ({ page })),
-	setUsersPage: (usersPage: Page<User>) =>
+	sort: '',
+	order: 'desc',
+	setPage: (page) => set(() => ({ page })),
+	setUsersPage: (usersPage) =>
 		set(() => ({
 			users: usersPage.content,
 			page: usersPage.number,
 			totalPages: usersPage.totalPages
 		})),
-	setLoading: (loading: boolean) => set(() => ({ loading })),
-	setUsers: (users: User[]) => set(() => ({ users }))
+	setLoading: (loading) => set(() => ({ loading })),
+	setUsers: (users) => set(() => ({ users })),
+	setSort: (column) =>
+		set((state) => ({ sort: column, order: state.order === 'asc' ? 'desc' : 'asc' }))
 }));
 
 export const useUsers = () => {
@@ -50,7 +57,7 @@ export const useUsers = () => {
 	const fetchData = () => {
 		store.setLoading(true);
 		client
-			.get(`/users?page=${store.page}`)
+			.get(`/users?page=${store.page}&sort=${store.sort}&order=${store.order}`)
 			.then(({ data }) => {
 				store.setUsersPage(data);
 			})
@@ -61,7 +68,7 @@ export const useUsers = () => {
 
 	useEffect(() => {
 		fetchData();
-	}, [store.page]); // eslint-disable-line
+	}, [store.page, store.sort, store.order]); // eslint-disable-line
 
 	const handleCreate = async (user: User) => {
 		try {

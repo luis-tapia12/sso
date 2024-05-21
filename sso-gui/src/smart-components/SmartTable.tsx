@@ -8,12 +8,15 @@ import { ModalMode, useSmartTable } from '../hooks/useSmartTable';
 
 type SmartTableProps<T extends FieldValues> = {
 	data: T[];
+	order?: 'asc' | 'desc';
+	sort?: string;
 	formComponent: React.FC<FormProps<T>>;
 	page: number;
 	schema: Schema<string, T>;
 	totalPages: number;
 	handleConfirm: (item: T) => Promise<unknown>;
 	setPage: (page: number) => void;
+	setSort?: (column: string) => void;
 };
 
 export type FormProps<T extends FieldValues> = {
@@ -48,7 +51,7 @@ const SmartTable = <T extends Record<string, unknown>>({
 
 	const smartSchema: Schema<string, T> = {
 		...schema,
-		__: {
+		' ': {
 			label: 'Action',
 			render: (item) => (
 				<div>

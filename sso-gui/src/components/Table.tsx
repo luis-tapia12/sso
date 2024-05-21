@@ -12,16 +12,26 @@ export type Schema<K extends string, T> = {
 type TableProps<T> = {
 	data: T[];
 	schema: Schema<string, T>;
+	order?: 'asc' | 'desc';
+	sort?: string;
+	setSort?: (column: string) => void;
 };
 
-const Table = <T extends Record<string, unknown>>({ data, schema }: TableProps<T>) => {
+const Table = <T extends Record<string, unknown>>({
+	data,
+	schema,
+	sort,
+	order,
+	setSort
+}: TableProps<T>) => {
 	const columns = Object.keys(schema);
 
 	const tableHead = (
 		<tr>
 			{columns.map((currColumn: string, columnIndex: number) => (
-				<th key={columnIndex}>
+				<th key={columnIndex} onClick={() => setSort?.(currColumn)}>
 					{(schema[currColumn] as Column<T>).label || (schema[currColumn] as ReactNode)}
+					{sort === currColumn && (order === 'asc' ? '▲' : '▼')}
 				</th>
 			))}
 		</tr>
