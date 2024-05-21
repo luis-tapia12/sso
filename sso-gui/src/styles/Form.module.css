@@ -1,0 +1,23 @@
+.form {
+	display: grid;
+	gap: 1rem;
+	margin-bottom: 1rem;
+}
+
+.form > div > label {
+	display: block;
+	font-weight: 500;
+}
+
+.form > div > input {
+	width: 100%;
+	border: 2px solid var(--border);
+	height: 2.5rem;
+	border-radius: 5px;
+}
+
+.actions {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: 1rem;
+}

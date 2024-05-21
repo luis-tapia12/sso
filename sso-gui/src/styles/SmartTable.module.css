@@ -1,0 +1,42 @@
+.pagination {
+	margin-top: 1rem;
+	display: flex;
+}
+
+.pagination button,
+.pagination span {
+	margin-right: 1rem;
+}
+
+.pagination input {
+	width: 7ch;
+}
+
+.actions {
+	margin-bottom: 1rem;
+}
+
+.actions button > * {
+	margin-left: 1rem;
+}
+
+.rowActions button:first-child {
+	margin-right: 1rem;
+}
+
+.table {
+	border-collapse: collapse;
+	width: 100%;
+}
+
+.table th {
+	text-align: left;
+}
+
+.table tbody tr {
+	border-bottom: 1px solid var(--border);
+}
+
+.table tbody tr:last-child {
+	border: none;
+}

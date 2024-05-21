@@ -1,3 +1,63 @@
+:root {
+	--header-bg: #fff;
+	--header-height: 56px;
+	--border: rgb(229 231 235);
+	--text-color: rgb(17 24 39);
+	--text-secondary-color: rgb(107 114 128);
+	--primary-color: #8873b2;
+	font-size: 10px;
+}
+
+body {
+	margin: 0;
+	font-family: 'Roboto', sans-serif;
+	font-size: 1.35rem;
+}
+
+button {
+	border-radius: 8px;
+	border: 1px solid var(--border);
+	padding: 0.6rem 1.2rem;
+	font-size: 1.5rem;
+	font-weight: 500;
+	font-family: inherit;
+	background-color: #ffffff;
+	cursor: pointer;
+	transition: border-color 0.25s;
+}
+
+button:enabled:hover {
+	border-color: var(--primary-color);
+}
+
+button:focus,
+button:focus-visible {
+	outline: 4px auto -webkit-focus-ring-color;
+}
+
+#root {
+	display: flex;
+	flex-direction: column;
+}
+
+.root {
+	max-height: calc(100vh - var(--header-height) - 1px);
+	height: calc(100vh - var(--header-height) - 1px);
+	display: flex;
+	flex-direction: column;
+	overflow: auto;
+}
+
+.main {
+	flex-grow: 1;
+	padding: 2rem 3rem;
+}
+
+footer {
+	border-top: 1px solid var(--border);
+	padding: 2rem 3rem;
+}
+
 .fade-enter {
 	opacity: 0.01;
 	transform: scale(0.95);

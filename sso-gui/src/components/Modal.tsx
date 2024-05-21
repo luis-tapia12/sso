@@ -5,7 +5,7 @@ import styles from '../styles/Modal.module.css';
 type ModalProps = {
 	children: ReactNode;
 	show: boolean;
-	title: string;
+	title?: string;
 	onClose: () => void;
 };
 
@@ -14,11 +14,15 @@ const Modal = ({ children, show, title, onClose }: ModalProps) => {
 		show && (
 			<div className={styles.modalRoot}>
 				<div className={styles.modal}>
-					<div>
-						<span>{title}</span>
-						<button onClick={onClose}>✖️</button>
-					</div>
-					<div>{children}</div>
+					{title && (
+						<div className={styles.modalTitle}>
+							<span>{title}</span>
+							<button onClick={onClose}>
+								<i className="fas fa-xmark" />
+							</button>
+						</div>
+					)}
+					<div className={styles.modalBody}>{children}</div>
 				</div>
 			</div>
 		)

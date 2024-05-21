@@ -14,6 +14,7 @@ type TableProps<T> = {
 	schema: Schema<string, T>;
 	order?: 'asc' | 'desc';
 	sort?: string;
+	className?: string;
 	setSort?: (column: string) => void;
 };
 
@@ -22,6 +23,7 @@ const Table = <T extends Record<string, unknown>>({
 	schema,
 	sort,
 	order,
+	className,
 	setSort
 }: TableProps<T>) => {
 	const columns = Object.keys(schema);
@@ -50,7 +52,7 @@ const Table = <T extends Record<string, unknown>>({
 	);
 
 	return (
-		<table>
+		<table className={className}>
 			<thead>{tableHead}</thead>
 			<tbody>{data.map(tableRow)}</tbody>
 		</table>

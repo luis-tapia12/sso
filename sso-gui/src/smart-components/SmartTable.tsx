@@ -5,6 +5,7 @@ import ConfirmationModal from './ConfirmationModal';
 import Modal from '../components/Modal';
 import Table, { Schema } from '../components/Table';
 import { ModalMode, useSmartTable } from '../hooks/useSmartTable';
+import styles from '../styles/SmartTable.module.css';
 
 type SmartTableProps<T extends FieldValues> = {
 	data: T[];
@@ -54,9 +55,13 @@ const SmartTable = <T extends Record<string, unknown>>({
 		' ': {
 			label: 'Action',
 			render: (item) => (
-				<div>
-					<button onClick={() => handleClickEdit(item)}>🖊️</button>
-					<button onClick={() => handleClickDelete(item)}>🗑️</button>
+				<div className={styles.rowActions}>
+					<button onClick={() => handleClickEdit(item)}>
+						<i className="fas fa-pen" />
+					</button>
+					<button onClick={() => handleClickDelete(item)}>
+						<i className="fas fa-trash" />
+					</button>
 				</div>
 			)
 		}
@@ -64,13 +69,15 @@ const SmartTable = <T extends Record<string, unknown>>({
 
 	return (
 		<div>
-			<div>
-				Actions: <button onClick={handleClickAdd}>➕</button>
+			<div className={styles.actions}>
+				<button onClick={handleClickAdd}>
+					New <i className="fas fa-plus" />
+				</button>
 			</div>
-			<Table {...rest} schema={smartSchema} />
-			<div>
+			<Table {...rest} schema={smartSchema} className={styles.table} />
+			<div className={styles.pagination}>
 				<button disabled={page + 1 <= 1} onClick={handleClickPrev}>
-					Prev
+					<i className="fas fa-angle-left" />
 				</button>
 				<form>
 					<span>
@@ -88,7 +95,7 @@ const SmartTable = <T extends Record<string, unknown>>({
 					<button onClick={handleEditPage}>{editingPage ? 'Accept' : 'Edit'}</button>
 				</form>
 				<button disabled={page + 1 >= totalPages} onClick={handleClickNext}>
-					Next
+					<i className="fas fa-angle-right" />
 				</button>
 			</div>
 			<ConfirmationModal

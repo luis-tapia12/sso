@@ -1,6 +1,7 @@
 import Form from '../smart-components/Form';
 import SmartTable, { FormProps } from '../smart-components/SmartTable';
 import { User, useUsers } from '../store/useUsers';
+import styles from '../styles/Form.module.css';
 
 const Users = () => {
 	const {
@@ -37,7 +38,7 @@ const Users = () => {
 				schema={schema}
 				hanldeSubmit={modalMode === 'create' ? handleCreate : handleUpdate}
 			/>
-			<div>
+			<div className={styles.actions}>
 				<button type="submit" form="user-form" disabled={form.formState.isSubmitting}>
 					Accept
 				</button>

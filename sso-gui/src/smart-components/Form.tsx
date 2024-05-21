@@ -2,6 +2,7 @@ import { ReactNode } from 'react';
 import { FieldValues, Path, SubmitHandler, UseFormReturn } from 'react-hook-form';
 
 import { Column, Schema } from '../components/Table';
+import styles from '../styles/Form.module.css';
 
 type FormProps<T extends FieldValues> = {
 	form: UseFormReturn<T, unknown, undefined>;
@@ -14,7 +15,7 @@ const Form = <T extends FieldValues>({ form, id, schema, hanldeSubmit }: FormPro
 	const columns = Object.keys(schema);
 
 	return (
-		<form id={id} onSubmit={form.handleSubmit(hanldeSubmit)}>
+		<form id={id} onSubmit={form.handleSubmit(hanldeSubmit)} className={styles.form}>
 			{columns.map((currColumn, columnIndex) => (
 				<div key={columnIndex}>
 					<label htmlFor={currColumn}>

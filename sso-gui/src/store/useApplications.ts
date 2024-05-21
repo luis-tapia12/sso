@@ -72,14 +72,21 @@ export const useApplications = () => {
 			fetchData();
 		} catch (error) {
 			console.log(error);
+			alert('An error occurred while creating the client');
 		}
 	};
 
 	const handleDelete = async (application: Application) => {
-		return client.delete(`/clients/${application.id}`).then(() => {
-			fetchData();
-			return Promise.resolve();
-		});
+		return client
+			.delete(`/clients/${application.id}`)
+			.then(() => {
+				fetchData();
+				return Promise.resolve();
+			})
+			.catch((error) => {
+				console.log(error);
+				alert('An error occurred while creating the client');
+			});
 	};
 
 	const handleUpdate = async (application: Application) => {
@@ -88,6 +95,7 @@ export const useApplications = () => {
 			store.setApplications(objectArray(store.applications).update(data));
 		} catch (error) {
 			console.log(error);
+			alert('An error occurred while creating the client');
 		}
 	};
 

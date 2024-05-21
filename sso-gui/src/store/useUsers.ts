@@ -76,14 +76,22 @@ export const useUsers = () => {
 			fetchData();
 		} catch (error) {
 			console.log(error);
+			alert('An error occurred while creating the user');
 		}
 	};
 
 	const handleDelete = async (user: User) => {
-		return client.delete(`/users/${user.id}`).then(() => {
-			fetchData();
-			return Promise.resolve();
-		});
+		return client
+			.delete(`/users/${user.id}`)
+			.then(() => {
+				fetchData();
+				return Promise.resolve();
+			})
+			.catch((error) => {
+				console.log(error);
+				alert('An error occurred while deleting the user');
+				return Promise.reject();
+			});
 	};
 
 	const handleUpdate = async (user: User) => {
@@ -92,6 +100,7 @@ export const useUsers = () => {
 			store.setUsers(objectArray(store.users).update(data));
 		} catch (error) {
 			console.log(error);
+			alert('An error occurred while updating the user');
 		}
 	};
 

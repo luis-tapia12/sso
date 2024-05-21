@@ -1,5 +1,7 @@
 import { useState } from 'react';
+
 import Modal from '../components/Modal';
+import styles from '../styles/ConfirmationModal.module.css';
 
 type ConfirmationModalProps = {
 	show: boolean;
@@ -22,9 +24,14 @@ const ConfirmationModal = ({ onAccept, ...rest }: ConfirmationModalProps) => {
 	};
 
 	return (
-		<Modal {...rest} title="Confirm">
-			<div>Do you want to continue? This action cannot be undone.</div>
-			<div>
+		<Modal {...rest}>
+			<div className={styles.confirmation}>
+				<div>
+					<i className="fas fa-triangle-exclamation" />
+				</div>
+				<div>Do you want to continue? This action cannot be undone.</div>
+			</div>
+			<div className={styles.actions}>
 				<button disabled={submitting} onClick={handleAccept}>
 					Accept
 				</button>
