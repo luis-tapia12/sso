@@ -19,6 +19,6 @@ public class AuthController {
 
     @GetMapping("/user")
     public User getLoggedUser(@AuthenticationPrincipal UserDetails user) {
-        return service.getUserByUsername(user.getUsername());
+        return service.getUser(user.getUsername());
     }
 }

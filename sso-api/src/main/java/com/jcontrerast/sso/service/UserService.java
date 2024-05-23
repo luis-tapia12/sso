@@ -9,8 +9,6 @@ public interface UserService {
 
     User getUser(String id);
 
-    User getUserByUsername(String username);
-
     User saveUser(User user);
 
     User updateUser(User user);
