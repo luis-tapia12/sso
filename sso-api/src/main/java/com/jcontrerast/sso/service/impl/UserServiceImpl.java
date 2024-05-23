@@ -34,6 +34,12 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
+    public User getUserByUsername(String username) {
+        return repository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("The user username " + username + " does not exist"));
+    }
+
+    @Override
     public User saveUser(User user) {
         user.generateId();
         user.setPassword(passwordEncoder.encode(user.getPassword()));
@@ -61,7 +67,10 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return repository.findByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException("The user username " + username + " does not exist"));
+        User user = getUserByUsername(username);
+        return org.springframework.security.core.userdetails.User.builder()
+                .username(user.getUsername())
+                .password(user.getPassword())
+                .build();
     }
 }

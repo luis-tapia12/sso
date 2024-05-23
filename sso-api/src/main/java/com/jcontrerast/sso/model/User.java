@@ -25,7 +25,7 @@ import java.util.UUID;
 @Setter
 @Entity
 @Table(name = "SSO_USERS")
-public class User implements UserDetails {
+public class User {
     @Id
     @Column(name = "ID")
     private String id;
@@ -80,36 +80,6 @@ public class User implements UserDetails {
     @Size(max = 100)
     @Column(name = "PROFILE_PICTURE")
     private String profilePicture;
-
-    @JsonIgnore
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of();
-    }
-
-    @JsonIgnore
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    @JsonIgnore
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @JsonIgnore
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @JsonIgnore
-    @Override
-    public boolean isEnabled() {
-        return true;
-    }
 
     public void generateId() {
         this.id = UUID.randomUUID().toString();
