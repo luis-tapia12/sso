@@ -1,6 +1,5 @@
 package com.jcontrerast.sso.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.jcontrerast.sso.utils.Constants;
 import com.jcontrerast.sso.validation.Create;
@@ -13,12 +12,8 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.*;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDateTime;
-import java.util.Collection;
-import java.util.List;
 import java.util.UUID;
 
 @Getter
