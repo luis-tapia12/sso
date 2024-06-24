@@ -14,7 +14,7 @@ export type User = {
 	dateOfBirth: string;
 	gender: string;
 	phone: string;
-	profilePicture: string;
+	profilePicture?: string;
 };
 
 type UsersState = {
