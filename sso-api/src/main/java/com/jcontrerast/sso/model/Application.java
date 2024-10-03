@@ -1,14 +1,12 @@
 package com.jcontrerast.sso.model;
 
 import com.jcontrerast.sso.enumeration.ApplicationState;
+import com.jcontrerast.sso.enumeration.converter.ApplicationStateConverter;
 import com.jcontrerast.sso.utils.Constants;
 import com.jcontrerast.utils.validation.Create;
 import com.jcontrerast.utils.validation.NullableNotBlank;
 import com.jcontrerast.utils.validation.Update;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
@@ -36,6 +34,7 @@ public class Application {
     private String name;
 
     @Column(name = "state", length = Integer.MAX_VALUE)
+    @Convert(converter = ApplicationStateConverter.class)
     private ApplicationState state;
 
     @Size(max = 255)

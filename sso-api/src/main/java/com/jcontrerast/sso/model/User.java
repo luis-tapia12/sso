@@ -1,6 +1,7 @@
 package com.jcontrerast.sso.model;
 
 import com.jcontrerast.sso.enumeration.Language;
+import com.jcontrerast.sso.enumeration.converter.LanguageConverter;
 import com.jcontrerast.sso.utils.Constants;
 import com.jcontrerast.utils.validation.Create;
 import com.jcontrerast.utils.validation.NullableNotBlank;
@@ -56,5 +57,6 @@ public class User {
     private String profilePictureUrl;
 
     @Column(name = "language", length = 2)
+    @Convert(converter = LanguageConverter.class)
     private Language language;
 }

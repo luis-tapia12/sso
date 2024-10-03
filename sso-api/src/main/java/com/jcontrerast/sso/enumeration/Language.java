@@ -12,4 +12,13 @@ public enum Language {
     private Language(String id) {
         this.id = id;
     }
+
+    public static Language fromId(String id) {
+        for (Language lang : values()) {
+            if (lang.id.equals(id)) {
+                return lang;
+            }
+        }
+        return null;
+    }
 }

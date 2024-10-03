@@ -13,4 +13,13 @@ public enum ApplicationState {
     private ApplicationState(String id) {
         this.id = id;
     }
+
+    public static ApplicationState fromId(String id) {
+        for (ApplicationState state : values()) {
+            if (state.id.equals(id)) {
+                return state;
+            }
+        }
+        return null;
+    }
 }
