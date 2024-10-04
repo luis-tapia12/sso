@@ -24,28 +24,29 @@ CREATE TABLE sso.applications(
     logo_url VARCHAR(100)
 );
 
-CREATE TABLE sso.application_roles(
+CREATE TABLE sso.roles(
     id UUID PRIMARY KEY,
     application_id UUID NOT NULL,
     name VARCHAR(50) NOT NULL,
+    UNIQUE (application_id, name),
     FOREIGN KEY (application_id) REFERENCES sso.applications(id)
 );
 
-CREATE TABLE sso.application_user_roles(
+CREATE TABLE sso.user_roles(
     user_id UUID NOT NULL,
     role_id UUID NOT NULL,
     enabled BOOLEAN,
     PRIMARY KEY (user_id, role_id),
     FOREIGN KEY (user_id) REFERENCES sso.users(id),
-    FOREIGN KEY (role_id) REFERENCES sso.application_roles(id)
+    FOREIGN KEY (role_id) REFERENCES sso.roles(id)
 );
 
-CREATE TABLE sso.role_permissions(
+CREATE TABLE sso.permissions(
     id UUID PRIMARY KEY,
     role_id UUID NOT NULL,
-    name VARCHAR(100),
+    name VARCHAR(100) NOT NULL,
     description VARCHAR(255),
-    FOREIGN KEY (role_id) REFERENCES sso.application_roles(id)
+    FOREIGN KEY (role_id) REFERENCES sso.roles(id)
 );
 
 CREATE TABLE sso.user_passwords(
