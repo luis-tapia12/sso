@@ -32,11 +32,12 @@ CREATE TABLE sso.roles(
     FOREIGN KEY (application_id) REFERENCES sso.applications(id)
 );
 
-CREATE TABLE sso.user_roles(
+CREATE TABLE sso.authorizations(
+    id UUID PRIMARY KEY,
     user_id UUID NOT NULL,
     role_id UUID NOT NULL,
     enabled BOOLEAN,
-    PRIMARY KEY (user_id, role_id),
+    UNIQUE (user_id, role_id),
     FOREIGN KEY (user_id) REFERENCES sso.users(id),
     FOREIGN KEY (role_id) REFERENCES sso.roles(id)
 );
@@ -46,6 +47,7 @@ CREATE TABLE sso.permissions(
     role_id UUID NOT NULL,
     name VARCHAR(100) NOT NULL,
     description VARCHAR(255),
+    UNIQUE (role_id, name),
     FOREIGN KEY (role_id) REFERENCES sso.roles(id)
 );
 
