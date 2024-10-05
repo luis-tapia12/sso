@@ -1,7 +1,9 @@
 package com.jcontrerast.sso.controller;
 
 import com.jcontrerast.sso.core.ApplicationService;
+import com.jcontrerast.sso.core.RoleService;
 import com.jcontrerast.sso.model.Application;
+import com.jcontrerast.sso.model.Role;
 import com.jcontrerast.utils.dto.PageFilterDTO;
 import com.jcontrerast.utils.validation.Create;
 import com.jcontrerast.utils.validation.Update;
@@ -16,9 +18,13 @@ import java.util.UUID;
 @RequestMapping("/api/v1/applications")
 public class ApplicationController {
     private final ApplicationService service;
+    private final RoleService roleService;
 
-    public ApplicationController(ApplicationService service) {
+    public ApplicationController(
+            ApplicationService service,
+            RoleService roleService) {
         this.service = service;
+        this.roleService = roleService;
     }
 
     @GetMapping
@@ -29,6 +35,11 @@ public class ApplicationController {
     @GetMapping("/{id}")
     public Application getById(@PathVariable UUID id) {
         return service.getById(id);
+    }
+
+    @GetMapping("/{id}/roles")
+    public Page<Role> getRolesById(@PathVariable UUID id, @Validated PageFilterDTO filter) {
+        return roleService.getAllByApplicationId(id, filter);
     }
 
     @PostMapping

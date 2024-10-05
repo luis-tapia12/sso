@@ -2,6 +2,8 @@ package com.jcontrerast.sso.service;
 
 import com.jcontrerast.sso.core.AuthorizationService;
 import com.jcontrerast.sso.model.Authorization;
+import com.jcontrerast.sso.model.Role;
+import com.jcontrerast.sso.model.User;
 import com.jcontrerast.sso.repository.AuthorizationRepository;
 import com.jcontrerast.utils.Assertions;
 import com.jcontrerast.utils.Utils;
@@ -17,21 +19,21 @@ import java.util.UUID;
 
 @Service
 public class AuthorizationServiceImpl implements AuthorizationService {
-    public final AuthorizationRepository repository;
+    private final AuthorizationRepository repository;
 
     public AuthorizationServiceImpl(AuthorizationRepository repository) {
         this.repository = repository;
     }
 
     @Override
-    public Page<Authorization> getAllByUserId(UUID userId, PageFilterDTO filter) {
+    public Page<Role> getAllByUserId(UUID userId, PageFilterDTO filter) {
         Pageable pageable = Utils.getPageable(filter);
 
         return repository.findByUserId(userId, pageable);
     }
 
     @Override
-    public Page<Authorization> getAllByRoleId(UUID roleId, PageFilterDTO filter) {
+    public Page<User> getAllByRoleId(UUID roleId, PageFilterDTO filter) {
         Pageable pageable = Utils.getPageable(filter);
 
         return repository.findByRoleId(roleId, pageable);

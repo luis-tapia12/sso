@@ -1,7 +1,11 @@
 package com.jcontrerast.sso.controller;
 
+import com.jcontrerast.sso.core.AuthorizationService;
+import com.jcontrerast.sso.core.PermissionService;
 import com.jcontrerast.sso.core.RoleService;
+import com.jcontrerast.sso.model.Permission;
 import com.jcontrerast.sso.model.Role;
+import com.jcontrerast.sso.model.User;
 import com.jcontrerast.utils.dto.PageFilterDTO;
 import com.jcontrerast.utils.validation.Create;
 import com.jcontrerast.utils.validation.Update;
@@ -15,10 +19,17 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/api/v1/roles")
 public class RoleController {
-    public final RoleService service;
+    private final RoleService service;
+    private final PermissionService permissionService;
+    private final AuthorizationService authorizationService;
 
-    public RoleController(RoleService service) {
+    public RoleController(
+            RoleService service,
+            PermissionService permissionService,
+            AuthorizationService authorizationService) {
         this.service = service;
+        this.permissionService = permissionService;
+        this.authorizationService = authorizationService;
     }
 
     @GetMapping
@@ -26,9 +37,14 @@ public class RoleController {
         return service.getAll(filter);
     }
 
-    @GetMapping("/{applicationId}")
-    public Page<Role> getAllByApplicationId(@PathVariable UUID applicationId, @Validated PageFilterDTO filter) {
-        return service.getAllByApplicationId(applicationId, filter);
+    @GetMapping("/{id}/users")
+    public Page<User> getUsersById(@PathVariable UUID id, @Validated PageFilterDTO filter) {
+        return authorizationService.getAllByRoleId(id, filter);
+    }
+
+    @GetMapping("/{id}/permissions")
+    public Page<Permission> getPermissionsById(@PathVariable UUID id, @Validated PageFilterDTO filter) {
+        return permissionService.getAllByRoleId(id, filter);
     }
 
     @PostMapping

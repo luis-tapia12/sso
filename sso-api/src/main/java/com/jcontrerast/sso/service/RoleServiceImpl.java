@@ -17,7 +17,7 @@ import java.util.UUID;
 
 @Service
 public class RoleServiceImpl implements RoleService {
-    public final RoleRepository repository;
+    private final RoleRepository repository;
 
     public RoleServiceImpl(RoleRepository repository) {
         this.repository = repository;

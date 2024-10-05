@@ -15,7 +15,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/api/v1/permissions")
 public class PermissionController {
-    public final PermissionService service;
+    private final PermissionService service;
 
     public PermissionController(PermissionService service) {
         this.service = service;
@@ -24,11 +24,6 @@ public class PermissionController {
     @GetMapping
     public Page<Permission> getAll(@Validated PageFilterDTO filter) {
         return service.getAll(filter);
-    }
-
-    @GetMapping("/{roleId}")
-    public Page<Permission> getAllByRoleId(@PathVariable UUID roleId, @Validated PageFilterDTO filter) {
-        return service.getAllByRoleId(roleId, filter);
     }
 
     @PostMapping

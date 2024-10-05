@@ -1,6 +1,8 @@
 package com.jcontrerast.sso.controller;
 
+import com.jcontrerast.sso.core.AuthorizationService;
 import com.jcontrerast.sso.core.UserService;
+import com.jcontrerast.sso.model.Role;
 import com.jcontrerast.sso.model.User;
 import com.jcontrerast.utils.dto.PageFilterDTO;
 import com.jcontrerast.utils.validation.Create;
@@ -16,9 +18,13 @@ import java.util.UUID;
 @RequestMapping("/api/v1/users")
 public class UserController {
     private final UserService service;
+    private final AuthorizationService authorizationService;
 
-    public UserController(UserService service) {
+    public UserController(
+            UserService service,
+            AuthorizationService authorizationService) {
         this.service = service;
+        this.authorizationService = authorizationService;
     }
 
     @GetMapping
@@ -29,6 +35,11 @@ public class UserController {
     @GetMapping("/{id}")
     public User getById(@PathVariable UUID id) {
         return service.getById(id);
+    }
+
+    @GetMapping("/{id}/roles")
+    public Page<Role> getRolesById(@PathVariable UUID id, @Validated PageFilterDTO filter) {
+        return authorizationService.getAllByUserId(id, filter);
     }
 
     @PostMapping

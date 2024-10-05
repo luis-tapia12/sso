@@ -17,7 +17,7 @@ import java.util.UUID;
 
 @Service
 public class ApplicationServiceImpl implements ApplicationService {
-    public final ApplicationRepository repository;
+    private final ApplicationRepository repository;
 
     public ApplicationServiceImpl(ApplicationRepository repository) {
         this.repository = repository;

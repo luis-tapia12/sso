@@ -17,7 +17,7 @@ import java.util.UUID;
 
 @Service
 public class PermissionServiceImpl implements PermissionService {
-    public final PermissionRepository repository;
+    private final PermissionRepository repository;
 
     public PermissionServiceImpl(PermissionRepository repository) {
         this.repository = repository;
