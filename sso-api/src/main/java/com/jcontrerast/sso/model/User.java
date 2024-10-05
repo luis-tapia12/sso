@@ -10,7 +10,6 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.validator.constraints.URL;
 
 import java.util.UUID;
 
@@ -51,7 +50,6 @@ public class User {
     @Column(name = "password", nullable = false, length = 100)
     private String password;
 
-    @URL
     @Size(max = 100)
     @Column(name = "profile_picture_url", length = 100)
     private String profilePictureUrl;

@@ -3,24 +3,37 @@ package com.jcontrerast.sso.service;
 import com.jcontrerast.sso.core.ApplicationService;
 import com.jcontrerast.sso.model.Application;
 import com.jcontrerast.sso.repository.ApplicationRepository;
+import com.jcontrerast.sso.utils.SsoUtils;
 import com.jcontrerast.utils.Assertions;
 import com.jcontrerast.utils.Utils;
+import com.jcontrerast.utils.core.StorageService;
 import com.jcontrerast.utils.dto.PageFilterDTO;
 import com.jcontrerast.utils.exception.ResourceAlreadyExistsException;
 import com.jcontrerast.utils.exception.ResourceNotFoundException;
+import lombok.SneakyThrows;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Optional;
 import java.util.UUID;
 
 @Service
 public class ApplicationServiceImpl implements ApplicationService {
+    private final String rootDir;
     private final ApplicationRepository repository;
+    private final StorageService storageService;
 
-    public ApplicationServiceImpl(ApplicationRepository repository) {
+    public ApplicationServiceImpl(
+            @Value("${images.base-dir}") String baseDir,
+            @Value("${images.logos.dir}") String logosDir,
+            ApplicationRepository repository,
+            StorageService storageService) {
+        this.rootDir = SsoUtils.getPath(baseDir, logosDir);
         this.repository = repository;
+        this.storageService = storageService;
     }
 
     @Override
@@ -72,6 +85,22 @@ public class ApplicationServiceImpl implements ApplicationService {
         Application application = getById(id);
 
         application.setClientSecret(clientSecret);
+        repository.save(application);
+    }
+
+    @SneakyThrows
+    @Override
+    public void uploadLogo(UUID id, MultipartFile file) {
+        Application application = getById(id);
+
+        if (application.getLogoUrl() != null) {
+            storageService.delete(rootDir, application.getLogoUrl());
+        }
+
+        String fileName = id.toString() + "." + SsoUtils.getFileExtension(file);
+        storageService.upload(rootDir, fileName, file.getInputStream());
+        application.setLogoUrl(fileName);
+
         repository.save(application);
     }
 }

@@ -11,6 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.UUID;
 
@@ -62,5 +63,11 @@ public class ApplicationController {
     @PatchMapping("/{id}/clientSecret")
     public void updateClientSecret(@PathVariable UUID id, @RequestParam String clientSecret) {
         service.updateClientSecret(id, clientSecret);
+    }
+
+    @PostMapping("/{id}/logo")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void uploadLogo(@PathVariable UUID id, @RequestParam MultipartFile file) {
+        service.uploadLogo(id, file);
     }
 }

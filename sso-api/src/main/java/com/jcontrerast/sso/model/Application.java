@@ -58,7 +58,6 @@ public class Application {
     @Column(name = "redirect_url", nullable = false, length = 100)
     private String redirectUrl;
 
-    @URL
     @Size(max = 100)
     @Column(name = "logo_url", length = 100)
     private String logoUrl;

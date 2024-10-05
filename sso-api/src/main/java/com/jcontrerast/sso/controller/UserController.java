@@ -11,6 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.UUID;
 
@@ -62,5 +63,11 @@ public class UserController {
     @PatchMapping("/{id}/password")
     public void updatePassword(@PathVariable UUID id, @RequestParam String password) {
         service.updatePassword(id, password);
+    }
+
+    @PostMapping("/{id}/profilePicture")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void uploadProfilePicture(@PathVariable UUID id, @RequestParam MultipartFile file) {
+        service.uploadProfilePicture(id, file);
     }
 }
