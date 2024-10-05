@@ -66,4 +66,12 @@ public class ApplicationServiceImpl implements ApplicationService {
             throw new ResourceNotFoundException("The application with id " + id + " does not exist");
         }
     }
+
+    @Override
+    public void updateClientSecret(UUID id, String clientSecret) {
+        Application application = getById(id);
+
+        application.setClientSecret(clientSecret);
+        repository.save(application);
+    }
 }

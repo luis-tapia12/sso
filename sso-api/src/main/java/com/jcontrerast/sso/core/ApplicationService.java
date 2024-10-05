@@ -16,4 +16,6 @@ public interface ApplicationService {
     Application update(Application application);
 
     void delete(UUID id);
+
+    void updateClientSecret(UUID id, String clientSecret);
 }

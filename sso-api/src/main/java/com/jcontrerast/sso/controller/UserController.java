@@ -58,4 +58,9 @@ public class UserController {
     public void delete(@PathVariable UUID id) {
         service.delete(id);
     }
+
+    @PatchMapping("/{id}/password")
+    public void updatePassword(@PathVariable UUID id, @RequestParam String password) {
+        service.updatePassword(id, password);
+    }
 }

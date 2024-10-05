@@ -7,10 +7,7 @@ import com.jcontrerast.utils.validation.Create;
 import com.jcontrerast.utils.validation.NullableNotBlank;
 import com.jcontrerast.utils.validation.Update;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.constraints.URL;
@@ -51,7 +48,7 @@ public class Application {
 
     @Size(max = 100)
     @NotBlank(groups = Create.class)
-    @NullableNotBlank(groups = Update.class)
+    @Null(groups = Update.class)
     @Column(name = "client_secret", nullable = false, length = 100)
     private String clientSecret;
 

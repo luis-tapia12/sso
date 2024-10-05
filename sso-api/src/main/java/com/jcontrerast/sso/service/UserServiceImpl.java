@@ -66,4 +66,12 @@ public class UserServiceImpl implements UserService {
             throw new ResourceNotFoundException("The user with id " + id + " does not exist");
         }
     }
+
+    @Override
+    public void updatePassword(UUID id, String newPassword) {
+        User user = getById(id);
+
+        user.setPassword(newPassword);
+        repository.save(user);
+    }
 }

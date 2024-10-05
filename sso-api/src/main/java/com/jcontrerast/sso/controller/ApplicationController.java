@@ -58,4 +58,9 @@ public class ApplicationController {
     public void delete(@PathVariable UUID id) {
         service.delete(id);
     }
+
+    @PatchMapping("/{id}/clientSecret")
+    public void updateClientSecret(@PathVariable UUID id, @RequestParam String clientSecret) {
+        service.updateClientSecret(id, clientSecret);
+    }
 }
