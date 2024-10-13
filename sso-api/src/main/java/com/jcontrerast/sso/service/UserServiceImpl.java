@@ -14,6 +14,7 @@ import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -25,12 +26,16 @@ public class UserServiceImpl implements UserService {
     private final String rootDir;
     private final UserRepository repository;
     private final StorageService storageService;
+    private final PasswordEncoder passwordEncoder;
 
     public UserServiceImpl(
             @Value("${images.base-dir}") String baseDir,
             @Value("${images.profile-pictures.dir}") String profilePicturesDir,
             UserRepository repository,
-            StorageService storageService) {
+            StorageService storageService,
+            PasswordEncoder passwordEncoder
+    ) {
+        this.passwordEncoder = passwordEncoder;
         this.rootDir = SsoUtils.getPath(baseDir, profilePicturesDir);
         this.repository = repository;
         this.storageService = storageService;
@@ -51,6 +56,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User create(User user) {
         user.setId(UUID.randomUUID());
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         if (!repository.existsById(user.getId())) {
             return repository.save(user);
         } else {
@@ -84,7 +90,7 @@ public class UserServiceImpl implements UserService {
     public void updatePassword(UUID id, String newPassword) {
         User user = getById(id);
 
-        user.setPassword(newPassword);
+        user.setPassword(passwordEncoder.encode(newPassword));
         repository.save(user);
     }
 
