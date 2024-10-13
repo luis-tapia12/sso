@@ -3,7 +3,7 @@ import { createBrowserRouter } from 'react-router-dom';
 
 import App from './App';
 import Applications from './views/Applications';
-import Permissions from './views/Permissions';
+import Dashboard from './views/Dashboard';
 import Roles from './views/Roles';
 import Users from './views/Users';
 
@@ -18,7 +18,7 @@ const HOME_PATH = '/';
 
 export const routes: Route[] = [
 	{ element: <Applications />, path: '/applications', title: 'Applications' },
-	{ element: <Permissions />, path: '/permissions', title: 'Permissions' },
+	{ element: <Dashboard />, path: '/', title: 'Dashboard' },
 	{ element: <Roles />, path: '/roles', title: 'Roles' },
 	{ element: <Users />, path: '/users', title: 'Users' }
 ];

@@ -12,7 +12,7 @@
 	},
 	"dependencies": {
 		"axios": "^1.7.7",
-		"carbonx-ui": "^0.3.0",
+		"carbonx-ui": "^0.4.1",
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",
 		"react-router-dom": "^6.26.2",
