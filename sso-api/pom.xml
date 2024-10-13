@@ -26,6 +26,11 @@
     <dependencies>
         <dependency>
             <groupId>com.jcontrerast</groupId>
+            <artifactId>sso-auth</artifactId>
+            <version>0.1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.jcontrerast</groupId>
             <artifactId>sso-gui</artifactId>
             <version>0.1.0-SNAPSHOT</version>
         </dependency>
