@@ -1,0 +1,25 @@
+.loginCard {
+	max-width: 24rem;
+	margin: 2rem auto;
+}
+
+.loginCard > div > img {
+	width: 80px;
+	margin: auto;
+}
+
+.loginCard form {
+	display: grid;
+	gap: 0.5rem;
+	margin-bottom: 1rem;
+}
+
+.loginCard form a {
+	text-align: right;
+	font-size: 0.9rem;
+}
+
+.loginCard > div > a {
+	display: block;
+	text-align: center;
+}

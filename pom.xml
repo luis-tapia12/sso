@@ -17,6 +17,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>sso-api</module>
+        <module>sso-auth</module>
         <module>sso-gui</module>
     </modules>
 

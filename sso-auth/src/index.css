@@ -1,0 +1,66 @@
+body {
+	background:
+		linear-gradient(27deg, #151515 5px, transparent 5px) 0 5px,
+		linear-gradient(207deg, #151515 5px, transparent 5px) 10px 0px,
+		linear-gradient(27deg, #222 5px, transparent 5px) 0px 10px,
+		linear-gradient(207deg, #222 5px, transparent 5px) 10px 5px,
+		linear-gradient(90deg, #1b1b1b 10px, transparent 10px),
+		linear-gradient(
+			#1d1d1d 25%,
+			#1a1a1a 25%,
+			#1a1a1a 50%,
+			transparent 50%,
+			transparent 75%,
+			#242424 75%,
+			#242424
+		);
+	background-color: #131313;
+	background-size: 20px 20px;
+}
+
+a {
+	color: #131313;
+}
+
+.fade-enter {
+	opacity: 0.01;
+	transform: scale(0.95);
+}
+
+.fade-enter.fade-enter-active {
+	opacity: 1;
+	transform: scale(1);
+	transition:
+		opacity 300ms ease-in,
+		transform 300ms;
+}
+
+.fade-exit {
+	opacity: 1;
+	transform: scale(1);
+}
+
+.fade-exit.fade-exit-active {
+	opacity: 0.01;
+	transform: scale(0.95);
+	transition:
+		opacity 300ms ease-in,
+		transform 300ms;
+}
+
+.not-found {
+	color: var(--secondary-color);
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+}
+
+.not-found > div:first-child {
+	font-size: 6rem;
+}
+
+.not-found > div:last-child {
+	font-size: 3rem;
+}
